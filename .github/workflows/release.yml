@@ -13,9 +13,7 @@ jobs:
           - os: windows-latest
             artifact: tp2excel.exe
           - os: macos-latest
-            artifact: tp2excel
-          - os: ubuntu-latest
-            artifact: tp2excel-linux
+            artifact: tp2excel-mac
 
     runs-on: ${{ matrix.os }}
 
@@ -29,12 +27,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt pyinstaller
 
-      - name: Build executable
-        run: pyinstaller --onefile --name tp2excel main.py
+      - name: Build executable (Windows)
+        if: matrix.os == 'windows-latest'
+        run: pyinstaller --onefile --name tp2excel --console main.py
 
-      - name: Rename artifact (Linux)
-        if: matrix.os == 'ubuntu-latest'
-        run: mv dist/tp2excel dist/tp2excel-linux
+      - name: Build executable (macOS)
+        if: matrix.os == 'macos-latest'
+        run: pyinstaller --onefile --name tp2excel-mac main.py
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
