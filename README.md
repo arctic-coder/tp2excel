@@ -2,6 +2,8 @@
 
 Exports training plans from TrainingPeaks to Excel (.xlsx) files.
 
+Inspired by [tp2intervals](https://github.com/freekode/tp2intervals).
+
 Each plan is saved as a spreadsheet with one row per week and columns for each day of the week.
 
 ---
